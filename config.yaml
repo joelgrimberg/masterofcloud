@@ -63,4 +63,4 @@ applications:
     env:
       SOME_ENV_VAR: Exposed
       SOME_OTHER_VAR: desopxE
-domain_name: "mysubdomain.masterofcloud.com"
+domain_name: "joelgrimberg.masterofcloud.com"
