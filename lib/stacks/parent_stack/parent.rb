@@ -20,10 +20,7 @@ module InfraStack
 
       resource :ecs_stack,
                type: "AWS::CloudFormation::Stack" do |r|
-<<<<<<< HEAD
         r.depends_on %w(VpcStack)
-=======
->>>>>>> 9593230... Add parent stacks
         r.property(:template_url) { "ecsstack" }
         r.property(:parameters) do
           {
