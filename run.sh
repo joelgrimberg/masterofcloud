@@ -1,14 +1,19 @@
-#!/bin/sh
-ENVIRONMENT="test"
+if [[ -z "$ENVIRONMENT" ]] && [ "$ENVIRONMENT" != "development" ] && [ "$ENVIRONMENT" != "acceptance" ] && [ "$ENVIRONMENT" != "production" ]
+then  ENVIRONMENT="test"
+fi
+
+echo ENVIRONMENT is set to $ENVIRONMENT
+echo ''
+
 echo 'COMPILING...'
-./rake_compile.sh
+ENVIRONMENT=$ENVIRONMENT ./rake_compile.sh
 echo ''
 echo ''
 echo 'UPLOADING...'
-./rake_upload.sh
+ENVIRONMENT=$ENVIRONMENT ./rake_upload.sh
 echo ''
 echo ''
 echo 'APPLYING... and waiting..'
-./rake_apply.sh
+ENVIRONMENT=$ENVIRONMENT ./rake_apply.sh
 echo ''
 echo ''
