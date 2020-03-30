@@ -21,9 +21,8 @@ module DatabaseStack
 
         resource :mydatabase,
                   type: "AWS::RDS::DBInstance" do |r|
-          r.property(:DBName) {:dbname.ref}
           r.property(:DBInstanceClass) {"db.t2.micro"}
-          r.property(:DBSubnetGroupName) {"dbsubnetgroup"}
+          r.property(:DBSubnetGroupName) {:dbsubnetgroup.ref}
           r.property(:Engine) {:engine_type.ref}
           r.property(:MasterUsername) { ENV["DB_Username"] }
           r.property(:MasterUserPassword) { ENV["DB_Password"] }
