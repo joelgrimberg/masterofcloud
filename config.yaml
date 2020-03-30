@@ -10,17 +10,14 @@ environments:
   test:
     vpc_cidr: 10.20.0.0/16
     stack_name: test-devops
-    cluster_size: "2"
     cluster_instance_type: t2.small
   acceptance:
     vpc_cidr: 10.30.0.0/16
     stack_name: acceptance-devops
-    cluster_size: "2"
     cluster_instance_type: t2.small
   production:
     vpc_cidr: 10.40.0.0/16
     stack_name: production-devops
-    cluster_size: "2"
     cluster_instance_type: t2.small
 subnets:
   - ec2_public:

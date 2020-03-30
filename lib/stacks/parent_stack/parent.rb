@@ -7,19 +7,36 @@ module InfraStack
       generate_bootstrap_parameters
 
       resource :vpc_stack,
-               type: "AWS::CloudFormation::Stack" do |r|
+                type: "AWS::CloudFormation::Stack" do |r|
         r.property(:template_url) { "vpcstack" }
         r.property(:tags) { default_tags }
       end
 
+      resource :database_stack,
+                type: "AWS::CloudFormation::Stack" do |r|
+        r.property(:template_url) { "databasestack" }
+        r.property(:parameters) do |r|
+          {
+            "Subnets":
+            [
+              :vpc_stack.ref("Outputs.BackendRdsPublicSubnetName"),
+              :vpc_stack.ref("Outputs.BackendRdsPublicSubnet2Name"),
+              :vpc_stack.ref("Outputs.BackendRdsPublicSubnet3Name")
+            ].fnjoin(",")
+          }
+        end
+      end
+
       resource :acm_stack,
-               type: "AWS::CloudFormation::Stack" do |r|
+                amount: 0,
+                type: "AWS::CloudFormation::Stack" do |r|
         r.property(:template_url) { "acmstack" }
         r.property(:tags) { default_tags }
       end
 
       resource :ecs_stack,
-               type: "AWS::CloudFormation::Stack" do |r|
+                amount: 0,
+                type: "AWS::CloudFormation::Stack" do |r|
         r.depends_on %w(VpcStack)
         r.property(:template_url) { "ecsstack" }
         r.property(:parameters) do
